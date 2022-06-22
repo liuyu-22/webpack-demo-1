@@ -1,25 +1,20 @@
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { basename } = require("path");
+const path = require("path");
+const { Chunk } = require("webpack");
+
+const base = require('./webpack.config.base.js')
 
 module.exports = {
-  mode: "development", //还可以填另一个值：production所有代码最小化 给用户用的 。 development模式是给开发者用的
-  entry: "./src/index.js",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js",
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "lynn喜欢Isabella22",
-      template: "src/assets/index.html",
-    }),
-  ],
+  ...base, // 把所有的base里的配置都加载进来
+  mode: "development",
   module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-    ],
-  },
-};
+      rules: [
+          {
+              test: /\.css$/i,
+              use: ['style-loader', 'css-loader']
+          }
+      ]
+  }
+}
